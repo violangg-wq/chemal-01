@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personality Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    .question-page {
+      display: none;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #4caf50;
+      color: white;
+    }
+    #result {
+      display: none;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">Personality Quiz</h1>
+
+  <!-- Question 1 -->
+  <div class="question-page" id="q1">
+    <p>1. How do you handle new situations?</p>
+    <label><input type="radio" name="q1" value="A"> I jump in immediately.</label><br>
+    <label><input type="radio" name="q1" value="B"> I observe first.</label><br>
+    <label><input type="radio" name="q1" value="C"> I wait for guidance.</label><br>
+    <button onclick="nextQuestion(1)">Next</button>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="question-page" id="q2">
+    <p>2. How do you recharge?</p>
+    <label><input type="radio" name="q2" value="A"> Being active.</label><br>
+    <label><input type="radio" name="q2" value="B"> Quiet time alone.</label><br>
+    <label><input type="radio" name="q2" value="C"> Talking with others.</label><br>
+    <button onclick="nextQuestion(2)">Next</button>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="question-page" id="q3">
+    <p>3. How do you solve problems?</p>
+    <label><input type="radio" name="q3" value="A"> Quickly, by testing ideas.</label><br>
+    <label><input type="radio" name="q3" value="B"> Slowly, analyzing each step.</label><br>
+    <label><input type="radio" name="q3" value="C"> With help from others.</label><br>
+    <button onclick="finishQuiz()">Finish</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    let scores = { A: 0, B: 0, C: 0 };
+
+    document.getElementById('q1').style.display = 'block';
+
+    function nextQuestion(num) {
+      const selected = document.querySelector(`input[name="q${num}"]:checked`);
+      if (!selected) return alert('Please select an answer.');
+
+      scores[selected.value]++;
+
+      document.getElementById(`q${num}`).style.display = 'none';
+      document.getElementById(`q${num + 1}`).style.display = 'block';
+    }
+
+    function finishQuiz() {
+      const selected = document.querySelector('input[name="q3"]:checked');
+      if (!selected) return alert('Please select an answer.');
+      scores[selected.value]++;
+
+      let personality = '';
+
+      if (scores.A >= scores.B && scores.A >= scores.C) {
+        personality = 'The Explorer — bold, energetic, action-driven.';
+      } else if (scores.B >= scores.A && scores.B >= scores.C) {
+        personality = 'The Thinker — reflective, analytical, calm.';
+      } else {
+        personality = 'The Connector — social, empathetic, collaborative.';
+      }
+
+      document.getElementById('q3').style.display = 'none';
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.textContent = personality;
+    }
+  </script>
+</body>
+</html>
+
