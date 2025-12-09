@@ -43,4 +43,4 @@ function openLightbox(src, caption){
   overlay.appendChild(wrapper);
   overlay.addEventListener('click', function(){ overlay.remove(); });
   document.body.appendChild(overlay);
-}
+};
