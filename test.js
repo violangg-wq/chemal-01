@@ -1,56 +1,68 @@
-let currentState = 1;
+document.addEventListener('DOMContentLoaded', () => {
+  let currentState = 1;
 
-function renderState(state) {
+  const startBtn = document.getElementById('start-button');
+  const landing = document.getElementById('landing-page');
+  const game = document.getElementById('game-container');
   const storyText = document.getElementById('story-text');
   const choicesContainer = document.getElementById('choices');
   const result = document.getElementById('result');
 
-  result.style.display = 'none';
-  choicesContainer.style.display = 'block';
-  storyText.textContent = gameData[state].text;
-  choicesContainer.innerHTML = '';
+  const personalities = {
+    "BKF Armchair":0, "Eames Lounge Chair":0, "Barcelona Chair":0, "Coconut Chair":0,
+    "Egg Armchair":0, "LCW Chair":0, "Eames Plastic Armchair DAW":0, "Eames Plastic Side Chair DSW":0,
+    "Panton Chair":0, "Wassily Chair":0, "Tulip Chair":0, "Wishbone Chair":0,
+    "CH07 Shell Chair":0, "Cesca Chair":0, "Red and Blue Chair":0
+  };
 
-  for (const [choice, info] of Object.entries(gameData[state].choices)) {
-    const button = document.createElement('button');
-    button.textContent = choice;
-    button.className = 'choice-button';
-    button.onclick = () => changeState(info[0], info[1]);
-    choicesContainer.appendChild(button);
-  }
-}
+  // Hide quiz initially
+  game.style.display = 'none';
 
-function changeState(newState, selectedChairs) {
-  selectedChairs.forEach(chair => { personalities[chair]++; });
-  currentState = newState;
-  if (currentState === 0) {
-    revealMostSelectedChair();
-  } else {
+  // Start button
+  startBtn.addEventListener('click', () => {
+    landing.style.display = 'none';
+    game.style.display = 'block';
     renderState(currentState);
+  });
+
+  function renderState(state) {
+    const q = gameData[state];
+    storyText.textContent = q.text;
+    choicesContainer.innerHTML = '';
+    result.style.display = 'none';
+    choicesContainer.style.display = 'block';
+
+    Object.entries(q.choices).forEach(([choiceText, [nextState, chairs]]) => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-button';
+      btn.textContent = choiceText;
+      btn.onclick = () => changeState(nextState, chairs);
+      choicesContainer.appendChild(btn);
+    });
   }
-}
 
-function revealMostSelectedChair() {
-  const storyText = document.getElementById('story-text');
-  const choicesContainer = document.getElementById('choices');
-  const result = document.getElementById('result');
+  function changeState(nextState, chairs) {
+    chairs.forEach(chair => personalities[chair]++);
+    currentState = nextState;
 
-  let maxCount = 0;
-  let maxChair = '';
-  for (const [chair, count] of Object.entries(personalities)) {
-    if (count > maxCount) {
-      maxCount = count;
-      maxChair = chair;
+    if (currentState === 0) {
+      showResult();
+    } else {
+      renderState(currentState);
     }
   }
 
-  storyText.textContent = '';
-  choicesContainer.style.display = 'none';
-  result.style.display = 'block';
-  result.textContent = `Your chair personality is: ${maxChair}!`;
-}
+  function showResult() {
+    choicesContainer.style.display = 'none';
+    storyText.textContent = '';
+    result.style.display = 'block';
 
-window.onload = () => {
-  document.getElementById('game-container').style.display = 'block';
-  renderState(currentState);
-};
+    let maxCount = 0;
+    let maxChair = '';
+    for (const [chair, count] of Object.entries(personalities)) {
+      if (count > maxCount) { maxCount = count; maxChair = chair; }
+    }
 
+    result.textContent = `Your chair personality is: ${maxChair}!`;
+  }
+});

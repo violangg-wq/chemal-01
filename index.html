@@ -8,16 +8,24 @@
 </head>
 <body>
 
-  <img src="images/pasta.jpg" alt="Chair Personality Quiz" class="header-image">
-  <h1>Chair Personality Quiz</h1>
+  <div class="wrapper">
+    <!-- Landing Page -->
+    <div id="landing-page" class="card">
+      <img src="images/pasta.jpg" alt="Chair Personality Quiz" class="header-image">
+      <h1>Chair Personality Quiz</h1>
+      <button id="start-button" class="choice-button">Start Quiz</button>
+    </div>
 
-  <div id="game-container">
-    <div id="story-text"></div>
-    <div id="choices"></div>
-    <div id="result"></div>
+    <!-- Quiz Page -->
+    <div id="game-container" class="card">
+      <div id="story-text"></div>
+      <div id="choices"></div>
+      <div id="result"></div>
+    </div>
   </div>
 
   <script src="gameData.js"></script>
   <script src="test.js"></script>
 </body>
 </html>
+
