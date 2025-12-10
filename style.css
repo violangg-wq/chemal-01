@@ -1,156 +1,164 @@
-/* ==========================
-   Variables
-========================== */
 :root {
-  --bg: #f5f5f2;       /* Page background color */
-  --card-bg: #e0f2e9;  /* Card background color */
-  --accent: #20332a;   /* Accent color for buttons and text */
-  --max-width: 400px;  /* Maximum width of cards */
+  --bg: #f5f5f2;
+  --card-bg: #e0f2e9;
+  --accent: #20332a;
+  --max-width: 550px;
 }
 
-/* ==========================
-   Reset & Box sizing
-========================== */
 * {
-  box-sizing: border-box;  /* Include padding/border in width/height */
-  margin: 0;               /* Remove default margins */
-  padding: 0;              /* Remove default padding */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* ==========================
-   PKMN Font
-========================== */
+/* Fonts */
 @font-face {
-  font-family: "PKMN-RBYGSC";                     /* Name to use in CSS */
-  src: url("fonts/PKMN_RBYGSC.ttf") format("truetype"); /* Local font file */
-  font-weight: normal;                             /* Normal weight */
-  font-style: normal;                              /* Normal style */
-  font-display: swap;                              /* Use fallback until font loads */
+  font-family: "PKMN-RBYGSC";
+  src: url("fonts/PKMN_RBYGSC.ttf") format("truetype");
 }
 
-/* ==========================
-   Body & global text
-========================== */
+@font-face {
+  font-family: 'Automate_OT_Regular';
+  src: url("fonts/Automate_OT_Regular.ttf") format('opentype');
+  font-weight: 700;
+}
+
+/* Body */
 body {
-  font-family: "PKMN-RBYGSC", sans-serif; /* Apply PKMN font globally */
-  background: var(--bg);                   /* Page background color */
-  color: var(--accent);                    /* Default text color */
-  min-height: 100vh;                       /* Full viewport height */
-  display: flex;                           /* Flexbox for centering */
-  justify-content: center;                 /* Horizontal centering */
-  align-items: center;                     /* Vertical centering */
-}
-
-/* Apply PKMN font specifically to headings and buttons */
-h1, .choice-button {
   font-family: "PKMN-RBYGSC", sans-serif;
+  background: var(--bg);
+  color: var(--accent);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ==========================
-   Wrapper
-========================== */
+/* Wrapper: static card */
 .wrapper {
-  width: 100%;                             /* Full width */
-  max-width: var(--max-width);             /* Restrict max width */
-  padding: 16px;                           /* Inner spacing */
-  display: flex;                           /* Flex container */
-  justify-content: center;                 /* Center children horizontally */
-  align-items: center;                     /* Center children vertically */
+  width: 100%;
+  max-width: var(--max-width);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ==========================
-   Card
-========================== */
+/* Card */
 .card {
-  background: var(--card-bg);              /* Card background color */
-  border-radius: 16px;                     /* Rounded corners */
-  padding: 24px;                           /* Inner spacing inside card */
-  text-align: center;                      /* Center text inside card */
-  width: 100%;                             /* Take full width of wrapper */
-  max-width: var(--max-width);             /* Limit maximum width */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Soft shadow */
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 32px;
+  width: 100%;
+  height: 90%;               /* tall card */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow-y: auto;
 }
 
-/* ==========================
-   Landing & Quiz Containers
-========================== */
-#landing-page { display: block; }  /* Show landing page initially */
-#game-container { display: none; } /* Hide quiz page start */
+/* Landing Page specific */
+#landing-page {
+  justify-content: center;   /* center vertically */
+}
 
-/* ==========================
-   Header Image
-========================== */
+/* Subtitle */
+.subtitle {
+  font-family: 'Automate_OT_Regular', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  color: var(--accent);
+  text-align: left;
+  width: 100%;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+/* Title */
+h1.title {
+  font-family: 'Automate_OT_Regular', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--accent);
+  text-align: left;
+  width: 100%;
+  line-height: 1.1;
+  margin: 0;
+  word-break: break-word;
+}
+
+/* Header Image */
 .header-image {
-  width: 180px;        /* Fixed width for image */
-  height: auto;        /* Maintain aspect ratio */
-  border-radius: 12px; /* Rounded corners */
-  margin-bottom: 16px; /* Space below image */
+  width: 180px;
+  height: auto;
+  border-radius: 12px;
 }
 
-/* ==========================
-Story text (question)
-========================== */
-#story-text {
-  margin-bottom: 24px;
-  line-height: 1.6;                /* Adds breathing room for questions */
-}
-
-
-/* ==========================
-   Heading
-========================== */
-h1 {
-  font-size: 1.8rem;
-  margin-bottom: 24px;
-  line-height: 1.3;                
-}
-
-/* ==========================
-   Choice Buttons
-========================== */
+/* Choice Buttons */
 .choice-button {
-  display: block;                  /* Full-width button */
-  width: 100%;                     /* Take full card width */
-  margin: 30px 0;                  /* Vertical spacing */
-  padding: 22px 0;                 /* Vertical padding */
-  background: var(--accent);       /* Button color */
-  color: #fff;                     /* Text color */
-  border: none;                    /* Remove border */
-  border-radius: 8px;              /* Rounded corners */
-  font-size: 0.75rem;              /* Text size */
-  cursor: pointer;                 /* Pointer cursor */
-  transition: box-shadow 0.2s ease;/* Smooth shadow transition */
-  letter-spacing: 3px;             /* Extra spacing between letters */
-  word-spacing: 5px;
-  line-height: 1.8; 
+  display: block;
+  width: 100%;
+  margin: 16px 0;
+  padding: 24px 0;          /* taller buttons */
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: "PKMN-RBYGSC", sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  letter-spacing: 3px;
+  word-spacing: 3px;
+  line-height: 1.8;
 }
 
-/* Hover effect for buttons */
 .choice-button:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* Shadow on hover */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
-/* ==========================
-   Choices & Result
-========================== */
-#choices { display: block; } /* Ensure visible */
+/* Story text & Result */
+#story-text {
+  margin-bottom: 16px;
+  width: 100%;
+  line-height: 1.8;
+  word-spacing: 5px;
+}
+
+#choices { width: 100%; }
+
 #result {
-  display: none;               /* Hidden initially */
-  margin-top: 16px;            /* Space above result text */
-  font-weight: bold;           /* Make result bold */
+  display: none;
+  margin-top: 16px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 3px;
+  word-spacing: 5px;
+  line-height: 1.8;
 }
 
-/* ==========================
-   Mobile Tweaks
-========================== */
+/* Mobile tweaks */
 @media (max-width: 500px) {
   .card {
-    padding: 16px;          /* Smaller padding on mobile */
+    padding: 16px;
+    height: 95%;
   }
   .header-image {
-    width: 140px;           /* Smaller image on mobile */
+    width: 140px;
   }
-  h1 {
-    font-size: 1.5rem;      /* Smaller heading on mobile */
+  h1.title {
+    font-size: clamp(1.5rem, 10vw, 2.5rem);
+  }
+  .subtitle {
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+  }
+  .choice-button {
+    padding: 18px 0;
+    font-size: 0.75rem;
   }
 }
