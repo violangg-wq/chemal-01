@@ -91,12 +91,12 @@ h1.title {
   word-break: break-word;
 }
 
-/* Header Image */
 .header-image {
-  width: 180px;
+  width: 460px;  /* increased from 180px */
   height: auto;
   border-radius: 12px;
 }
+
 
 /* Choice Buttons */
 .choice-button {
@@ -115,10 +115,28 @@ h1.title {
   letter-spacing: 3px;
   word-spacing: 3px;
   line-height: 1.8;
+   position: relative; /* pseudo-element */
 }
 
 .choice-button:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    background: #f2d646;        /* updated yellow from Arcteryx image */
+  color: #4a5f4b;             /* dark accent color text */
+
+}
+
+/* Arrow on hover using image */
+.choice-button:hover::before {
+  content: "";
+  position: absolute;
+  left: 12px;       /* distance from left edge */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;      /* arrow size */
+  height: 16px;
+  background-image: url('images/arrow.png'); /* replace with your downloaded image path */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* Story text & Result */
