@@ -18,8 +18,8 @@
 }
 
 @font-face {
-  font-family: 'Automate_OT_Regular';
-  src: url("fonts/Automate_OT_Regular.ttf") format('opentype');
+  font-family: "Automate_OT_Regular";
+  src: url("fonts/Automate_OT_Regular.ttf") format("opentype");
   font-weight: 700;
 }
 
@@ -34,7 +34,7 @@ body {
   align-items: center;
 }
 
-/* Wrapper: static card */
+/* Wrapper */
 .wrapper {
   width: 100%;
   max-width: var(--max-width);
@@ -50,24 +50,24 @@ body {
   border-radius: 20px;
   padding: 32px;
   width: 100%;
-  height: 90%;               /* tall card */
+  height: 90%;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   gap: 24px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   overflow-y: auto;
 }
 
-/* Landing Page specific */
+/* Landing Page */
 #landing-page {
-  justify-content: center;   /* center vertically */
+  justify-content: center;
 }
 
 /* Subtitle */
 .subtitle {
-  font-family: 'Automate_OT_Regular', sans-serif;
+  font-family: "Automate_OT_Regular", sans-serif;
   font-weight: 400;
   font-size: clamp(0.8rem, 2vw, 1rem);
   color: var(--accent);
@@ -80,7 +80,7 @@ body {
 
 /* Title */
 h1.title {
-  font-family: 'Automate_OT_Regular', sans-serif;
+  font-family: "Automate_OT_Regular", sans-serif;
   font-weight: 700;
   font-size: clamp(2rem, 6vw, 4rem);
   color: var(--accent);
@@ -92,18 +92,28 @@ h1.title {
 }
 
 .header-image {
-  width: 460px;  /* increased from 180px */
+  width: 460px;
   height: auto;
   border-radius: 12px;
 }
 
+/* Question Image */
+#question-image {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+  border-radius: 12px;
+  pointer-events: none;
+}
 
 /* Choice Buttons */
 .choice-button {
   display: block;
   width: 100%;
   margin: 16px 0;
-  padding: 24px 0;          /* taller buttons */
+  padding: 24px 0;
   background: var(--accent);
   color: #fff;
   border: none;
@@ -115,31 +125,44 @@ h1.title {
   letter-spacing: 3px;
   word-spacing: 3px;
   line-height: 1.8;
-   position: relative; /* pseudo-element */
+  position: relative;
 }
 
 .choice-button:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-    background: #f2d646;        /* updated yellow from Arcteryx image */
-  color: #4a5f4b;             /* dark accent color text */
-
+  background: #f2d646;
+  color: #4a5f4b;
 }
 
-/* Arrow on hover using image */
+/* Choice Images */
+.answer-image {
+  width: 180px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.choice-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Arrow */
 .choice-button:hover::before {
   content: "";
   position: absolute;
-  left: 12px;       /* distance from left edge */
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  width: 16px;      /* arrow size */
+  width: 16px;
   height: 16px;
-  background-image: url('images/arrow.png'); /* replace with your downloaded image path */
+  background-image: url("images/arrow.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-/* Story text & Result */
+/* Story + Choices */
 #story-text {
   margin-bottom: 16px;
   width: 100%;
@@ -147,36 +170,88 @@ h1.title {
   word-spacing: 5px;
 }
 
-#choices { width: 100%; }
-
-#result {
-  display: none;
-  margin-top: 16px;
-  font-weight: bold;
+#choices {
   width: 100%;
-  text-align: center;
-  letter-spacing: 3px;
-  word-spacing: 5px;
-  line-height: 1.8;
 }
 
-/* Mobile tweaks */
-@media (max-width: 500px) {
-  .card {
-    padding: 16px;
-    height: 95%;
+/* Result container */
+.result-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Left column */
+.result-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Right column */
+.result-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Result image */
+.result-img {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 15px;
+}
+
+/* Make each category box fill the page width */
+.detail-box {
+  width: 100%;                /* takes full width */
+  background: #f7f1e6;        /* light beige */
+  padding: 20px 24px;
+  border-radius: 0;           /* remove rounded edges if you want true full width */
+  margin: 0;                  /* no side gaps */
+  margin-bottom: 22px;        /* spacing between categories */
+  box-sizing: border-box;     /* keeps padding from breaking layout */
+}
+
+/* Category titles */
+.detail-box h3 {
+  background: #6b4f3a;        /* brown */
+  color: #f7f1e6;             /* beige text */
+  text-align: center;
+
+  padding: 10px 12px;
+  margin: 0 0 14px 0;
+  border-radius: 6px;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Description text */
+.detail-box p {
+  margin: 0;
+  line-height: 1.7;
+  letter-spacing: 0.3px;
+  color: #3d2e22;
+  font-size: 1rem;
+}
+
+
+
+
+/* Mobile */
+@media (max-width: 550px) {
+  .result-card {
+    grid-template-columns: 1fr;
   }
-  .header-image {
-    width: 140px;
-  }
-  h1.title {
-    font-size: clamp(1.5rem, 10vw, 2.5rem);
-  }
-  .subtitle {
-    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-  }
-  .choice-button {
-    padding: 18px 0;
-    font-size: 0.75rem;
+
+  .result-img {
+    max-width: 240px;
+    margin: 0 auto;
   }
 }

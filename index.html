@@ -1,12 +1,11 @@
-  <!-- Quiz Layout -->
-  <!-- Start Quiz → test.js shows question 1 → user picks an answer → next question loads → system records which chairs they picked → end → final result shown. -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Chair Personality Quiz</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,15 +21,74 @@
     </div>
 
     <!-- Quiz Page -->
-    <div id="game-container" class="card">
+    <div id="game-container" class="card" style="display:none;">
+
+      <!-- QUESTION IMAGE -->
+      <div class="question-image-wrapper">
+        <img id="question-image" src="" alt="Question Image" class="question-img">
+      </div>
+
       <div id="story-text"></div>
       <div id="choices"></div>
-      <div id="result"></div>
-    </div>
 
-  </div>
+<div id="result" style="display:none;">
 
+  <div class="result-card">
+
+    <!-- LEFT COLUMN -->
+    <div class="result-left">
+      
+      <img id="result-image" class="result-img" src="" alt="Result Image">
+
+      <div class="detail-box">
+        <h3>Bean Tale</h3>
+        <p id="result-tale"></p>
+      </div>
+
+      <div class="detail-box">
+        <h3>Core Strengths</h3>
+        <p id="result-strengths"></p>
+      </div>
+
+    </div> <!-- end left -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="result-right">
+
+      <div class="detail-box">
+        <h3>Bad Date Once Said</h3>
+        <p id="result-ex"></p>
+      </div>
+
+      <div class="detail-box">
+        <h3>Little Bean Brain</h3>
+        <p id="result-brain"></p>
+      </div>
+
+      <div class="detail-box">
+        <h3>Bean Social Vibes</h3>
+        <p id="result-social"></p>
+      </div>
+
+      <div class="detail-box">
+        <h3>Approved Materials</h3>
+        <p id="result-materials"></p>
+      </div>
+
+    </div> <!-- end right -->
+
+  </div> <!-- end result-card -->
+</div>
+
+
+
+    </div> <!-- end game-container -->
+
+  </div> 
+
+  <!-- Scripts -->
   <script src="gameData.js"></script>
   <script src="test.js"></script>
+
 </body>
 </html>

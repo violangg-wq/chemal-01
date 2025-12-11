@@ -1,159 +1,367 @@
-// Story Tree - Questions, Answers, What scene number it goes to next, Which chairs are associated with that choice
-
-
-// 15 Chair Personalities (hidden)
-const personalities = {
-  "BKF Armchair": 0, "Eames Lounge Chair": 0, "Barcelona Chair": 0, "Coconut Chair": 0,
-  "Egg Armchair": 0, "LCW Chair": 0, "Eames Plastic Armchair DAW": 0, "Eames Plastic Side Chair DSW": 0,
-  "Panton Chair": 0, "Wassily Chair": 0, "Tulip Chair": 0, "Wishbone Chair": 0,
-  "CH07 Shell Chair": 0, "Cesca Chair": 0, "Red and Blue Chair": 0
+// ------------------------------------------------------------
+// MBTI TRAITS FOR EACH CHAIR (used for score calculation)
+// ------------------------------------------------------------
+const beanMBTItraits = {
+  "BKF Armchair": "INFP",
+  "Eames Lounge Chair": "ISFJ",
+  "Barcelona Chair": "INTJ",
+  "Coconut Chair": "ISFP",
+  "Egg Armchair": "INFJ",
+  "LCW Chair": "ISTP",
+  "Eames Plastic Armchair DAW": "ENFP",
+  "Eames Plastic Side Chair DSW": "ESFP",
+  "Panton Chair": "ESTP",
+  "Wassily Chair": "INTP",
+  "Tulip Chair": "ESFJ",
+  "Wishbone Chair": "ENFJ",
+  "CH07 Shell Chair": "ISTJ",
+  "Cesca Chair": "ESTJ",
+  "Red and Blue Chair": "ENTP",
+  "Jean Prouvé Standard Chair": "ENTJ"
 };
 
-// Chair personality descriptions
+
+// ------------------------------------------------------------
+// RESULTS DETAILS FOR EACH CHAIR
+// ------------------------------------------------------------
 const chairDescriptions = {
-  "BKF Armchair": "You are adventurous yet relaxed. You find comfort in unconventional paths and enjoy the art of taking life lightly while still exploring boldly.",
-  "Eames Lounge Chair": "Classic and sophisticated, you value elegance and thoughtful choices. You bring calm and reassurance to your garden, guiding others with grace.",
-  "Barcelona Chair": "Timeless and iconic, you stand as a pillar of balance and wisdom. Your presence inspires respect and careful consideration in all tiny bean affairs.",
-  "Coconut Chair": "Comfortable and natural, you embrace warmth and simplicity. You nurture those around you, finding joy in small, meaningful moments.",
-  "Egg Armchair": "Protective and introspective, you like cozy corners and reflective thinking. You observe before acting, ensuring every choice aligns with your values.",
-  "LCW Chair": "Practical and thoughtful, you balance curiosity with caution. You learn from your surroundings and make steady, deliberate decisions.",
-  "Eames Plastic Armchair DAW": "Playful and versatile, you adapt easily to change. You enjoy connecting with different beans and exploring new corners of life.",
-  "Eames Plastic Side Chair DSW": "Friendly and approachable, you bring lighthearted energy wherever you go. You encourage growth in small, joyful ways.",
-  "Panton Chair": "Bold and iconic, you embrace daring choices and vivid experiences. Life is an adventure for you, and you dive in with fearless enthusiasm.",
-  "Wassily Chair": "Modern and analytical, you value design and innovation. You carefully assess situations, offering clarity and structure to the garden.",
-  "Tulip Chair": "Elegant and serene, you create harmony around you. You move gracefully through challenges, inspiring calm in fellow beans.",
-  "Wishbone Chair": "Gentle and supportive, you cultivate connections and stability. You find beauty in everyday moments and cherish friendships deeply.",
-  "CH07 Shell Chair": "Minimalist and observant, you prefer simplicity and clarity. You watch closely, acting only when it truly matters.",
-  "Cesca Chair": "Balanced and practical, you combine tradition with a touch of creativity. You adapt wisely, knowing when to guide and when to step back.",
-  "Red and Blue Chair": "Fearless and expressive, you embrace bold choices and unforgettable adventures. You inspire others with your confidence and playful spirit."
-};
 
-// Story Bean Questions - branching
-const gameData = {
-  "1": { "text": "Doom whispers through the garden, the wind carries rumors of strange events in the world beyond. As a tiny bean, what do you do?",
-    "choices": {
-      "Sneak off and hoard beans and toilet paper. Just in case. ": [2, ["Coconut Chair", "BKF Armchair"]],
-      "Shrug it off, today is just another day in the soil.": [2, ["LCW Chair", "Wishbone Chair"]],
-      "Waddle around & be a nosy lil’ bean to see what the whispers are all about!": [2, ["Red and Blue Chair", "Panton Chair"]]
-    }
+  "BKF Armchair": {
+    beanTale: "A wandering dream-bean who drifts through soft breezes, seeing poetry in dust motes.",
+    coreStrengths: "Imaginative, gentle, values meaning",
+    badDateOnceSaid: "Got lost in feelings for 4 hours.",
+    littleBeanBrain: "Believes every leaf has a secret destiny.",
+    behaveWithOthers: "Warm but shy, expresses care quietly.",
+    beanApprovedMaterials: "Soft leather, airy fabrics"
   },
-  "2": { "text": "A panicked outsider bean tumbles in, saying its homeland has fallen to the Refried Rumble. How do you respond?",
-    "choices": {
-      "Welcome the lil’ bean, show off your patch, maybe share a snack": [3, ["Coconut Chair", "Wishbone Chair"]],
-      "Guide them gently to a safe corner but stay cautious.": [3, ["Eames Lounge Chair", "Egg Armchair"]],
-      "Ignore them — strangers bring unknown trouble.": [3, ["Tulip Chair", "CH07 Shell Chair"]]
-    }
-  },
-  "3": { "text": "They pull out a sparkly magic scroll that shows future bean-chaos. What do you do?",
-    "choices": {
-      "Demand to read it. Maybe you can steer things toward safety.": [4, ["Red and Blue Chair", "Panton Chair"]],
-      "Keep it secret and observe. Curiosity first, action later.": [4, ["Eames Lounge Chair", "Barcelona Chair"]],
-      "Bury it, burn it! This is too spicy for any bean to hold!": [4, ["LCW Chair", "CH07 Shell Chair"]]
-    }
-  },
-  "4": { "text": "They beg to wander through your teeny-tiny bean garden. How do you react?",
-    "choices": {
-      "Show them everything. After all it’s all new to this lil’ bean.": [5, ["Red and Blue Chair", "Panton Chair"]],
-      "Guide them gently; some spots are wobbly and fragile ": [5, ["Tulip Chair", "Barcelona Chair"]],
-      "Keep your distance; you’re unsure what they might do.": [5, ["Coconut Chair", "BKF Armchair"]]
-    }
-  },
-  "5": { "text": "You notice small injustices among your neighboring sprouts. Do you intervene?",
-    "choices": {
-      "Act carefully, using insight to help where you can.": [6, ["Eames Lounge Chair", "Egg Armchair"]],
-      "Let things unfold — sometimes interference causes harm.": [6, ["LCW Chair", "Wishbone Chair"]],
-      "Focus on your own patch — growth is your priority.": [6, ["Red and Blue Chair", "Panton Chair"]]
-    }
-  },
-  "6": { "text": "The outsider bean grows sick in this unfamiliar soil. What do you do now?",
-    "choices": {
-      "Care for the outsider bean, even if it puts you at risk.": [7, ["Coconut Chair", "CH07 Shell Chair"]],
-      "Hesitate, weighing the consequences of action.": [7, ["LCW Chair", "Barcelona Chair"]],
-      "Hold back, assuming the garden already has all it can handle.": [7, ["Red and Blue Chair", "Panton Chair"]]
-    }
-  },
-  "7": { "text": "Rumors of danger reach your corner: some sprouts may be hurt by meddling. What’s your stance?",
-    "choices": {
-      "Find subtle ways to help without using the scroll.": [8, ["Eames Lounge Chair", "Egg Armchair"]],
-      "Step aside — you can't control everything!": [8, ["Tulip Chair", "CH07 Shell Chair"]],
-      "Take one bold action — hope it leads to better outcomes.": [8, ["Red and Blue Chair", "Panton Chair"]]
-    }
-  },
-  "8": { "text": "You must choose: trust the scroll to alter events, or let life unfold?",
-    "choices": {
-      "Hold it, trying to make a difference.": [9, ["Red and Blue Chair", "Panton Chair"]],
-      "Release it — accept uncertainty and stay present.": [9, ["Coconut Chair", "Wishbone Chair"]],
-      "Hide it — let the world decide later.": [9, ["LCW Chair", "Barcelona Chair"]]
-    }
-  },
-  "9": { "text": "Night falls, and reflections come: what matters most in your tiny existence?",
-    "choices": {
-      "Moments shared with fellow sprouts.": [10, ["Eames Lounge Chair", "Egg Armchair"]],
-      "Lessons about courage, curiosity, and growth.": [10, ["Tulip Chair", "CH07 Shell Chair"]],
-      "Quiet stability, the rhythm of daily life.": [10, ["Red and Blue Chair", "Panton Chair"]]
-    }
-  },
-  "10": { "text": "A storm passes, leaving your patch in disarray. How do you act?",
-    "choices": {
-      "Rebuild it — make it stronger than before!": [11, ["Coconut Chair", "BKF Armchair"]],
-      "Fix carefully, honoring what survived.": [11, ["LCW Chair", "Wishbone Chair"]],
-      "Observe and learn from nature — some things are beyond control.": [11, ["Red and Blue Chair", "Panton Chair"]]
-    }
-  },
-  "11": { "text": "You encounter a wise wandering bean who has seen distant lands. Do you:",
-    "choices": {
-      "Share your insights, forming a bond of understanding.": [12, ["Eames Lounge Chair", "Egg Armchair"]],
-      "Listen but act independently.": [12, ["LCW Chair", "Barcelona Chair"]],
-      "Avoid entanglement — every path carries risks.": [12, ["Red and Blue Chair", "Panton Chair"]]
-    }
-  },
-  "12": { "text": "A gentle breeze brings the scent of unknown lands. How do you respond?",
-    "choices": {
-      "Venture outward, curious and bold.": [13, ["Coconut Chair", "Wishbone Chair"]],
-      "Stay in familiar soil, appreciating what you know.": [13, ["Eames Lounge Chair", "Barcelona Chair"]],
-      "Watch silently, taking lessons from observation.": [13, ["LCW Chair", "CH07 Shell Chair"]]
-    }
-  },
-  "13": { "text": "You notice that even small actions ripple across your patch. What do you do?",
-    "choices": {
-      "Act mindfully — each choice has weight.": [14, ["Red and Blue Chair", "Panton Chair"]],
-      "Avoid meddling — not all consequences can be seen.": [14, ["Coconut Chair", "Egg Armchair"]],
-      "Experiment cautiously — growth comes from small trials.": [14, ["LCW Chair", "Barcelona Chair"]]
-    }
-  },
-  "14": { "text": "Your outsider friend asks about your philosophy of being. How do you answer?",
-    "choices": {
-      "Life is about small, bold actions.": [15, ["Red and Blue Chair", "Panton Chair"]],
-      "Life is about patience, balance, and harmony.": [15, ["Coconut Chair", "Wishbone Chair"]],
-      "Life is about observing, learning, and choosing wisely.": [15, ["LCW Chair", "CH07 Shell Chair"]]
-    }
-  },
-  "15": { "text": "Dawn breaks: you awaken as the same tiny bean. How do you live today?",
-    "choices": {
-      "Brave and adventurous, reaching toward the sun.": [0, ["Red and Blue Chair", "Panton Chair"]],
-      "Steady and gentle, nurturing sprouts around you.": [0, ["Coconut Chair", "Wishbone Chair"]],
-      "Thoughtful and watchful, accepting the garden as it comes.": [0, ["Eames Lounge Chair", "Barcelona Chair"]]
-    }
-  },
-  "0": {} // End
-};
 
-// Function to calculate winner
-function getWinningChair(scores) {
-  let maxScore = -Infinity;
-  let winner = '';
-  for (let chair in scores) {
-    if (scores[chair] > maxScore) {
-      maxScore = scores[chair];
-      winner = chair;
-    }
+  "Coconut Chair": {
+    beanTale: "A relaxed little blossom-bean lounging in patches of sun, oozing aesthetic calm.",
+    coreStrengths: "Artistic, authentic, sensory-aware",
+    badDateOnceSaid: "Drifted off to admire a cloud mid-conversation.",
+    littleBeanBrain: "Operates on vibes, textures, and color palettes.",
+    behaveWithOthers: "Gentle, expressive, soothing presence.",
+    beanApprovedMaterials: "Rattan, natural fibers"
+  },
+
+  "Egg Armchair": {
+    beanTale: "A cozy nest-bean who watches the world with quiet, soulful insight.",
+    coreStrengths: "Empathic, intuitive, protective",
+    badDateOnceSaid: "Looked into my soul without asking.",
+    littleBeanBrain: "Thinks in metaphors and emotional maps.",
+    behaveWithOthers: "Supportive sage-bean, sees deeper truths.",
+    beanApprovedMaterials: "Wool, soft upholstery"
+  },
+
+  "Tulip Chair": {
+    beanTale: "A harmony-seeking blossom-bean arranging everyone into peaceful circles.",
+    coreStrengths: "Caring, orderly, community-minded",
+    badDateOnceSaid: "Knows everyone’s drama AND keeps it organized.",
+    littleBeanBrain: "Runs on kindness, routines, and social pollen.",
+    behaveWithOthers: "Friendly host-bean, always making others comfy.",
+    beanApprovedMaterials: "Smooth plastics, soft pastels"
+  },
+
+  "Wassily Chair": {
+    beanTale: "A philosophical wander-bean lost in brilliant spirals of thought.",
+    coreStrengths: "Analytical, curious, inventive",
+    badDateOnceSaid: "Forgot the date while thinking about bean-gravity.",
+    littleBeanBrain: "Lives in theoretical realms and curly question marks.",
+    behaveWithOthers: "Detached but kind, loves odd conversations.",
+    beanApprovedMaterials: "Metal frames, clean lines"
+  },
+
+  "LCW Chair": {
+    beanTale: "A practical lil’ tinker-bean who disassembles problems for fun.",
+    coreStrengths: "Hands-on, observant, adaptable",
+    badDateOnceSaid: "Fixed the table mid-date instead of flirting.",
+    littleBeanBrain: "Works through logic, experiments, and quiet clarity.",
+    behaveWithOthers: "Calm, steady, surprisingly funny.",
+    beanApprovedMaterials: "Plywood, metal, minimalist shapes"
+  },
+
+  "Barcelona Chair": {
+    beanTale: "A mastermind bean plotting quiet empires of elegance.",
+    coreStrengths: "Strategic, visionary, determined",
+    badDateOnceSaid: "Over-analyzed my entire personality.",
+    littleBeanBrain: "Operates with long-term plans and sharpened insight.",
+    behaveWithOthers: "Direct, competent, sometimes intimidating.",
+    beanApprovedMaterials: "Steel, structured leather"
+  },
+
+  "CH07 Shell Chair": {
+    beanTale: "A responsible order-bean keeping the garden’s chaos at 0%.",
+    coreStrengths: "Reliable, structured, consistent",
+    badDateOnceSaid: "Color-coded our entire conversation.",
+    littleBeanBrain: "Runs on duty, lists, and internal rulebooks.",
+    behaveWithOthers: "Grounding presence, keeps everything working.",
+    beanApprovedMaterials: "Clean wood, precise curves"
+  },
+
+  "Eames Plastic Armchair DAW": {
+    beanTale: "A spark-bean overflowing with imagination and mini adventures.",
+    coreStrengths: "Enthusiastic, inventive, expressive",
+    badDateOnceSaid: "Started eight conversations at once.",
+    littleBeanBrain: "A glowing pinball of creative inspiration.",
+    behaveWithOthers: "Friendly, bubbly, contagious optimism.",
+    beanApprovedMaterials: "Colorful plastics, funky patterns"
+  },
+
+  "Eames Plastic Side Chair DSW": {
+    beanTale: "A party-bean who believes every leaf is a dance floor.",
+    coreStrengths: "Lively, charismatic, fun-driven",
+    badDateOnceSaid: "Sparkled too brightly for indoor spaces.",
+    littleBeanBrain: "Thinks in movement, sound, and excitement.",
+    behaveWithOthers: "Social butterfly-bean, pure sunshine.",
+    beanApprovedMaterials: "Bright colors, playful fabrics"
+  },
+
+  "Wishbone Chair": {
+    beanTale: "A guiding vine-bean who uplifts every sprout around them.",
+    coreStrengths: "Encouraging, warm, inspiring",
+    badDateOnceSaid: "Turned the date into a motivational speech.",
+    littleBeanBrain: "Thinks about potential, cooperation, and growth.",
+    behaveWithOthers: "Supportive leader-bean, unity-oriented.",
+    beanApprovedMaterials: "Curved wood, soft woven fibers"
+  },
+
+  "Cesca Chair": {
+    beanTale: "A structured caretaker-bean keeping every social root connected.",
+    coreStrengths: "Organized, sociable, dependable",
+    badDateOnceSaid: "Made a schedule for future arguments.",
+    littleBeanBrain: "Runs on tradition, fairness, community.",
+    behaveWithOthers: "Polished, attentive, good with groups.",
+    beanApprovedMaterials: "Cane weave, steel tubing"
+  },
+
+  "Red and Blue Chair": {
+    beanTale: "A chaos-star bean bouncing between ideas like fireworks.",
+    coreStrengths: "Curious, inventive, lively",
+    badDateOnceSaid: "Argued with a cloud for fun.",
+    littleBeanBrain: "Lives for novelty, theories, and bold experiments.",
+    behaveWithOthers: "Charming troublemaker-bean.",
+    beanApprovedMaterials: "Primary colors, bold geometry"
+  },
+
+  "Panton Chair": {
+    beanTale: "A thrill-bean surfing the waves of spontaneous choices.",
+    coreStrengths: "Bold, adaptable, fearless",
+    badDateOnceSaid: "Jumped off a log ‘for the plot’.",
+    littleBeanBrain: "Acts first, thinks while mid-air.",
+    behaveWithOthers: "Daring, magnetic, unpredictable.",
+    beanApprovedMaterials: "Smooth curves, glossy finishes"
+  },
+
+  "Eames Lounge Chair": {
+    beanTale: "A commanding executive-bean who organizes the garden with calm authority.",
+    coreStrengths: "Efficient, decisive, leadership-minded",
+    badDateOnceSaid: "Tried to optimize my personality.",
+    littleBeanBrain: "Thinks in systems, outcomes, and improvements.",
+    behaveWithOthers: "Confident, structured, takes charge.",
+    beanApprovedMaterials: "Walnut, leather, classic finishes"
+  },
+
+  "Jean Prouvé Standard Chair": {
+    beanTale: "A powerhouse builder-bean who turns vision into reality.",
+    coreStrengths: "Ambitious, strategic, driven",
+    badDateOnceSaid: "Scheduled a five-year plan for us.",
+    littleBeanBrain: "Thinks in blueprints, efficiency, and hard truths.",
+    behaveWithOthers: "Commanding but fair, results-focused.",
+    beanApprovedMaterials: "Steel, oak, industrial strength"
   }
-  return winner;
-}
 
-// Example usage at the end of quiz
-function showResult() {
-  const winner = getWinningChair(personalities);
-  const description = chairDescriptions[winner];
-  alert(`Your chair personality is: ${winner}\n\n${description}`);
-}
+};
+
+
+const gameData = {
+
+  questions: [
+
+  // 1 -------------------------
+  {
+    id: 1,
+    text: "Doom whispers through the garden, the wind carries rumors of strange events beyond. As a tiny bean, what do you do?",
+    choices: [
+      { text: "Sneak off and hoard beans + toilet paper. Just in case.", mbti: "ISTJ" },
+      { text: "Shrug it off — today feels normal enough.", mbti: "STP" },
+      { text: "Waddle around & be a nosy lil' bean to find out more!", mbti: "ENP" }
+    ]
+  },
+
+  // 2 -------------------------
+  {
+    id: 2,
+    text: "A panicked outsider bean tumbles in, claiming its homeland has fallen to the Refried Rumble. What do you do?",
+    choices: [
+      { text: "Welcome the lil’ bean warmly, maybe share a snack.", mbti: "EFP" },
+      { text: "Guide them gently to safety but stay cautious.", mbti: "IFJ" },
+      { text: "Ignore them — strangers bring unknown trouble.", mbti: "ITJ" }
+    ]
+  },
+
+  // 3 -------------------------
+  {
+    id: 3,
+    text: "The outsider reveals a sparkly magic scroll predicting future bean-chaos. What do you do?",
+    choices: [
+      { text: "Demand to read it — maybe you can steer things toward safety.", mbti: "ENTP" },
+      { text: "Keep it secret & observe — curiosity before action.", mbti: "INTJ" },
+      { text: "Bury it or burn it! Too spicy for any bean to hold!", mbti: "STJ" }
+    ]
+  },
+
+  // 4 -------------------------
+  {
+    id: 4,
+    text: "They ask to wander through your tiny bean garden. How do you react?",
+    choices: [
+      { text: "Show them EVERYTHING — it’s all new to them!", mbti: "ENP" },
+      { text: "Guide them gently; some spots are fragile.", mbti: "FJ" },
+      { text: "Keep your distance — you’re unsure what they might do.", mbti: "IST" }
+    ]
+  },
+
+  // 5 -------------------------
+  {
+    id: 5,
+    text: "You notice small injustices between neighboring sprouts. Do you intervene?",
+    choices: [
+      { text: "Act carefully, helping where you can.", mbti: "FJ" },
+      { text: "Let things unfold — interference can backfire.", mbti: "SP" },
+      { text: "Focus on your own patch — growth starts at home.", mbti: "TP" }
+    ]
+  },
+
+  // 6 -------------------------
+  {
+    id: 6,
+    text: "The outsider bean grows sick in your unfamiliar soil. What now?",
+    choices: [
+      { text: "Care for them even if it puts you at risk.", mbti: "FJI" },
+      { text: "Hesitate — weigh the consequences carefully.", mbti: "TJI" },
+      { text: "Hold back — the garden already has enough to handle.", mbti: "TPE" }
+    ]
+  },
+
+  // 7 -------------------------
+  {
+    id: 7,
+    text: "Rumors spread: some sprouts might get hurt by meddling. What’s your stance?",
+    choices: [
+      { text: "Find subtle, gentle ways to help.", mbti: "FJI" },
+      { text: "Step aside — you can’t control everything.", mbti: "STJ" },
+      { text: "Take one bold action and hope for the best.", mbti: "ENP" }
+    ]
+  },
+
+  // 8 -------------------------
+  {
+    id: 8,
+    text: "You must decide: use the scroll to change events, or let life unfold?",
+    choices: [
+      { text: "Use it — power exists to be used!", mbti: "ENTJ" },
+      { text: "Release it — accept uncertainty and trust the soil.", mbti: "FP" },
+      { text: "Hide it — let future beans decide.", mbti: "IJ" }
+    ]
+  },
+
+  // 9 -------------------------
+  {
+    id: 9,
+    text: "Night falls. What matters most in your tiny bean existence?",
+    choices: [
+      { text: "Moments shared with fellow sprouts.", mbti: "FE" },
+      { text: "Lessons about courage, curiosity, and growth.", mbti: "NJ" },
+      { text: "Quiet stability — the rhythm of daily soil life.", mbti: "SP" }
+    ]
+  },
+
+  // 10 -------------------------
+  {
+    id: 10,
+    text: "A storm passes, leaving your patch in disarray. What do you do?",
+    choices: [
+      { text: "Rebuild it — stronger than before!", mbti: "JS" },
+      { text: "Fix it carefully, honoring what survived.", mbti: "ISF" },
+      { text: "Observe & learn — nature always teaches.", mbti: "NP" }
+    ]
+  },
+
+  // 11 -------------------------
+  {
+    id: 11,
+    text: "You encounter a wise wandering bean from distant lands. Do you…",
+    choices: [
+      { text: "Share your insights; form a bond.", mbti: "EF" },
+      { text: "Listen respectfully but act independently.", mbti: "ITJ" },
+      { text: "Avoid entanglement — every path has risks.", mbti: "TP" }
+    ]
+  },
+
+  // 12 -------------------------
+  {
+    id: 12,
+    text: "A soft breeze brings scents of unknown lands.",
+    choices: [
+      { text: "Venture outward — adventure calls!", mbti: "ENP" },
+      { text: "Stay in familiar soil, appreciating what you know.", mbti: "ISJ" },
+      { text: "Watch silently — observation is its own wisdom.", mbti: "ITP" }
+    ]
+  },
+
+  // 13 -------------------------
+  {
+    id: 13,
+    text: "You realize even small actions ripple outward.",
+    choices: [
+      { text: "Act mindfully — each bean-choice matters.", mbti: "FJ" },
+      { text: "Avoid meddling — unseen consequences abound.", mbti: "ISP" },
+      { text: "Experiment gently — tiny trials shape growth.", mbti: "NP" }
+    ]
+  },
+
+  // 14 -------------------------
+  {
+    id: 14,
+    text: "Your outsider friend finally asks: what's your bean philosophy?",
+    choices: [
+      { text: "Life is tiny bold actions!", mbti: "ENP" },
+      { text: "Life is patience, balance, softness.", mbti: "FSJ" },
+      { text: "Life is observing, learning, and choosing wisely.", mbti: "ITJ" }
+    ]
+  },
+
+  // 15 -------------------------
+  {
+    id: 15,
+    text: "Dawn breaks. You awaken as the same tiny bean. How do you live today?",
+    choices: [
+      { text: "Bold & adventurous — reaching toward the sun.", mbti: "ENP" },
+      { text: "Steady & gentle — nurturing sprouts around you.", mbti: "FSJ" },
+      { text: "Thoughtful & watchful — accepting the garden as it comes.", mbti: "ITJ" }
+    ]
+  }
+
+],
+
+
+  results: {}
+};
+
+
+// ------------------------------------------------------------
+// Auto-build RESULTS from description + MBTI
+// ------------------------------------------------------------
+Object.keys(chairDescriptions).forEach(chair => {
+  gameData.results[chair] = {
+    name: chair,
+    mbti: beanMBTItraits[chair],
+    image: "images/" + chair + ".png",
+    tale: chairDescriptions[chair].beanTale,
+    strengths: chairDescriptions[chair].coreStrengths,
+    ex: chairDescriptions[chair].badDateOnceSaid,
+    brain: chairDescriptions[chair].littleBeanBrain,
+    social: chairDescriptions[chair].behaveWithOthers,
+    materials: chairDescriptions[chair].beanApprovedMaterials
+  };
+});
