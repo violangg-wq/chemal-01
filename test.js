@@ -114,26 +114,22 @@ const mbtiToChair = {
   ENTJ: "Jean Prouvé Standard Chair"
 };
 
-/* ---------------------------------------------------
-    SHOW RESULT PAGE
---------------------------------------------------- */
 function showResult() {
 
-  // hide question UI
   document.getElementById("story-text").style.display = "none";
   document.getElementById("choices").style.display = "none";
   document.querySelector(".question-image-wrapper").style.display = "none";
 
-  // show result UI
   document.getElementById("result").style.display = "block";
 
-  // MBTI calculation
   const finalType = getFinalMBTI();
   const finalChair = mbtiToChair[finalType];
 
+  // ⭐ INSERT THE CHAIR NAME
+  document.getElementById("result-name").innerText = finalChair || "Unknown Bean";
+
   if (!finalChair) {
     console.error("ERROR: No matching chair for MBTI:", finalType);
-    document.getElementById("result-name").innerText = "Unknown Bean";
     return;
   }
 
@@ -141,18 +137,14 @@ function showResult() {
 
   if (!bean) {
     console.error("ERROR: No bean data for chair", finalChair);
-    document.getElementById("result-name").innerText = finalChair;
     return;
   }
 
-  // Fill the output fields
-document.getElementById("result-image").src = bean.image;
-document.getElementById("result-tale").innerText = bean.tale;
-document.getElementById("result-strengths").innerText = bean.strengths;
-document.getElementById("result-ex").innerText = bean.ex;
-document.getElementById("result-brain").innerText = bean.brain;
-document.getElementById("result-social").innerText = bean.social;
-document.getElementById("result-materials").innerText = bean.materials;
-
-
-} // END
+  document.getElementById("result-image").src = bean.image;
+  document.getElementById("result-tale").innerText = bean.tale;
+  document.getElementById("result-strengths").innerText = bean.strengths;
+  document.getElementById("result-ex").innerText = bean.ex;
+  document.getElementById("result-brain").innerText = bean.brain;
+  document.getElementById("result-social").innerText = bean.social;
+  document.getElementById("result-materials").innerText = bean.materials;
+}

@@ -186,14 +186,15 @@ h1.title {
   box-sizing: border-box;
 }
 
-/* Left column */
-.result-left {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+#result .result-card {
+  width: 100%;
+  max-width: none;        /* Let it fill the card */
+  align-self: stretch;    /* BREAKS OUT of center alignment */
 }
 
-/* Right column */
+
+/* Left column */
+.result-left,
 .result-right {
   display: flex;
   flex-direction: column;
@@ -207,32 +208,29 @@ h1.title {
   border-radius: 15px;
 }
 
-/* Make each category box fill the page width */
+/* Full-width beige category box */
 .detail-box {
-  width: 100%;                /* takes full width */
-  background: #f7f1e6;        /* light beige */
+  width: 100%;
+  background: #f7f1e6;      /* beige */
   padding: 20px 24px;
-  border-radius: 0;           /* remove rounded edges if you want true full width */
-  margin: 0;                  /* no side gaps */
-  margin-bottom: 22px;        /* spacing between categories */
-  box-sizing: border-box;     /* keeps padding from breaking layout */
+  margin: 0;
+  margin-bottom: 22px;
+  box-sizing: border-box;
 }
 
-/* Category titles */
-.detail-box h3 {
-  background: #6b4f3a;        /* brown */
-  color: #f7f1e6;             /* beige text */
+/* CATEGORY TITLE — THIS WAS THE MISSING PART */
+.title-box {
+  background: #6b4f3a;      /* brown */
+  color: #f7f1e6;           /* beige */
   text-align: center;
-
-  padding: 10px 12px;
-  margin: 0 0 14px 0;
+  padding: 12px 14px;
+  margin-bottom: 14px;
   border-radius: 6px;
-
   font-size: 1.2rem;
   font-weight: 600;
 }
 
-/* Description text */
+/* Category description */
 .detail-box p {
   margin: 0;
   line-height: 1.7;
@@ -241,10 +239,15 @@ h1.title {
   font-size: 1rem;
 }
 
+.result-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #5b3a29;
+  font-weight: 700;
+}
 
-
-
-/* Mobile */
+/* Mobile layout */
 @media (max-width: 550px) {
   .result-card {
     grid-template-columns: 1fr;
