@@ -101,12 +101,15 @@ h1.title {
 #question-image {
   width: 100%;
   max-width: 420px;
+  max-height: 65vh;     /* ADD */
   height: auto;
   display: block;
   margin: 0 auto 20px auto;
   border-radius: 12px;
   pointer-events: none;
+  object-fit: contain; /* ADD */
 }
+
 
 /* Choice Buttons */
 .choice-button {
@@ -168,7 +171,9 @@ h1.title {
   width: 100%;
   line-height: 1.8;
   word-spacing: 5px;
+  text-align: center; 
 }
+
 
 #choices {
   width: 100%;
