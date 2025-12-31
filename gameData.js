@@ -180,6 +180,7 @@ const gameData = {
   // 1 -------------------------
   {
     id: 1,
+    image: "images/q01.png",
     text: "Doom whispers through the garden, the wind carries rumors of strange events beyond. As a tiny bean, what do you do?",
     choices: [
       { text: "Sneak off and hoard beans + toilet paper. Just in case.", mbti: "ISTJ" },
@@ -191,6 +192,7 @@ const gameData = {
   // 2 -------------------------
   {
     id: 2,
+    image: "images/q02.png",
     text: "A panicked outsider bean tumbles in, claiming its homeland has fallen to the Refried Rumble. What do you do?",
     choices: [
       { text: "Welcome the lil’ bean warmly, maybe share a snack.", mbti: "EFP" },
@@ -202,6 +204,7 @@ const gameData = {
   // 3 -------------------------
   {
     id: 3,
+    image: "images/q03.png",
     text: "The outsider reveals a sparkly magic scroll predicting future bean-chaos. What do you do?",
     choices: [
       { text: "Demand to read it — maybe you can steer things toward safety.", mbti: "ENTP" },
@@ -213,6 +216,7 @@ const gameData = {
   // 4 -------------------------
   {
     id: 4,
+    image: "images/q04.png",
     text: "They ask to wander through your tiny bean garden. How do you react?",
     choices: [
       { text: "Show them EVERYTHING — it’s all new to them!", mbti: "ENP" },
@@ -224,6 +228,7 @@ const gameData = {
   // 5 -------------------------
   {
     id: 5,
+    image: "images/q05.png",
     text: "You notice small injustices between neighboring sprouts. Do you intervene?",
     choices: [
       { text: "Act carefully, helping where you can.", mbti: "FJ" },
@@ -235,6 +240,8 @@ const gameData = {
   // 6 -------------------------
   {
     id: 6,
+    image: "images/q06.png",
+
     text: "The outsider bean grows sick in your unfamiliar soil. What now?",
     choices: [
       { text: "Care for them even if it puts you at risk.", mbti: "FJI" },
@@ -246,6 +253,7 @@ const gameData = {
   // 7 -------------------------
   {
     id: 7,
+    image: "images/q07.png",
     text: "Rumors spread: some sprouts might get hurt by meddling. What’s your stance?",
     choices: [
       { text: "Find subtle, gentle ways to help.", mbti: "FJI" },
@@ -257,6 +265,7 @@ const gameData = {
   // 8 -------------------------
   {
     id: 8,
+    image: "images/q08.png",
     text: "You must decide: use the scroll to change events, or let life unfold?",
     choices: [
       { text: "Use it — power exists to be used!", mbti: "ENTJ" },
@@ -268,6 +277,7 @@ const gameData = {
   // 9 -------------------------
   {
     id: 9,
+    image: "images/q09.png",
     text: "Night falls. What matters most in your tiny bean existence?",
     choices: [
       { text: "Moments shared with fellow sprouts.", mbti: "FE" },
@@ -279,6 +289,7 @@ const gameData = {
   // 10 -------------------------
   {
     id: 10,
+    image: "images/q10.png",
     text: "A storm passes, leaving your patch in disarray. What do you do?",
     choices: [
       { text: "Rebuild it — stronger than before!", mbti: "JS" },
@@ -290,6 +301,7 @@ const gameData = {
   // 11 -------------------------
   {
     id: 11,
+    image: "images/q11.png",
     text: "You encounter a wise wandering bean from distant lands. Do you…",
     choices: [
       { text: "Share your insights; form a bond.", mbti: "EF" },
@@ -301,6 +313,7 @@ const gameData = {
   // 12 -------------------------
   {
     id: 12,
+    image: "images/q12.png",
     text: "A soft breeze brings scents of unknown lands.",
     choices: [
       { text: "Venture outward — adventure calls!", mbti: "ENP" },
@@ -312,6 +325,7 @@ const gameData = {
   // 13 -------------------------
   {
     id: 13,
+    image: "images/q13.png",
     text: "You realize even small actions ripple outward.",
     choices: [
       { text: "Act mindfully — each bean-choice matters.", mbti: "FJ" },
@@ -323,6 +337,7 @@ const gameData = {
   // 14 -------------------------
   {
     id: 14,
+    image: "images/q14.png",
     text: "Your outsider friend finally asks: what's your bean philosophy?",
     choices: [
       { text: "Life is tiny bold actions!", mbti: "ENP" },
@@ -334,6 +349,7 @@ const gameData = {
   // 15 -------------------------
   {
     id: 15,
+    image: "images/q15.png",
     text: "Dawn breaks. You awaken as the same tiny bean. How do you live today?",
     choices: [
       { text: "Bold & adventurous — reaching toward the sun.", mbti: "ENP" },
